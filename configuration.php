@@ -1,5 +1,5 @@
 <?php
-include './seo.php';
+include_once 'seo.php';
 
 $str = file_get_contents('./photos.json');
 $json = json_decode($str, true);

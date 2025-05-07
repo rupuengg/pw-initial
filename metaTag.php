@@ -1,9 +1,8 @@
 <?php 
-  include './DB/SelectQuery.php';
+  include 'DB/SelectQuery.php';
   $rquestUri = $_SERVER['REQUEST_URI'] === '/' ? '/home_interior_design_in_noida' : $_SERVER['REQUEST_URI'];
-  $rquestUri = str_replace('/pw_initial/metaTag.php', '', $rquestUri);
+  $rquestUri = str_replace('/pwi_initial/', '', $rquestUri);
   $seo = getSiteConfig($rquestUri);
-  // echo '<pre>';print_r($seo);echo '</pre>';
 ?>
 <title><?php echo $seo->getTitle(); ?></title>
 

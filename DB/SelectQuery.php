@@ -47,7 +47,7 @@ function getSiteConfig($route = "") {
   $select = new SelectQuery();
   $select->query("SELECT * FROM seo_setting");
 
-  if($route === "") {
+  if($route === "" || str_contains($route, 'admin')) {
     $result = $select->selectAll();
 
     $siteConfigs = array();
@@ -55,7 +55,7 @@ function getSiteConfig($route = "") {
       array_push($siteConfigs, makeSiteConfigData($v));
     }
     
-    return $siteConfigs;
+    return $siteConfigs[0];
   } else {
     $result = $select->selectByWhere("route = '".$route."' ");
 
