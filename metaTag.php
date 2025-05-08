@@ -12,6 +12,8 @@
 <meta name="theme-color" content="#000000" />
 <meta name="google-site-verification" content="z_5HlCkpyxt7dVxFX-65bH-qVoqJc-b-Vvz0mED9j9k" />
 
+<meta name="p:domain_verify" content="29105b69a3b946b425e15b81de43e06e"/>
+
 <meta http-equiv="content-language" content="en" />
 <meta data-hid="http-equiv" http-equiv="Accept-CH" content="DPR, Viewport-Width, Width, Save-Data" />
 <meta charset="utf-8" />
