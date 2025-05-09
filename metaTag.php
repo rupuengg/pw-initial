@@ -1,6 +1,8 @@
-<?php 
+<?php
+//error_reporting(E_ALL);
   include 'DB/SelectQuery.php';
-  $rquestUri = $_SERVER['REQUEST_URI'] === '/' ? '/home_interior_design_in_noida' : $_SERVER['REQUEST_URI'];
+  $route = getHomeMenuRoute();
+  $rquestUri = $_SERVER['REQUEST_URI'] === '/' ? $route : $_SERVER['REQUEST_URI'];
   $rquestUri = str_replace('/pwi_initial/', '', $rquestUri);
   $seo = getSiteConfig($rquestUri);
 ?>

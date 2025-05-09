@@ -26,7 +26,7 @@ class SelectQuery {
 
   public function selectByWhere($where) {
     $stmt = $this->conn->prepare($this->query . ' where ' . $where);
-    $output = $stmt->execute();
+    $stmt->execute();
 
     return $stmt->fetch(PDO::FETCH_ASSOC);
   }
@@ -41,6 +41,13 @@ function makeSiteConfigData($row): SiteConfig {
   $siteConfig->setOgVideoData($row['ogVideoType'], $row['ogVideoWidth'], $row['ogVideoHeight'], $row['ogVideoSecureUrl']);
 
   return $siteConfig;
+}
+
+function getHomeMenuRoute() {
+    $select = new SelectQuery();
+    $select->query("SELECT * FROM menus ");
+    $result = $select->selectByWhere("page = 'Home' ");
+    return $result['route'];
 }
 
 function getSiteConfig($route = "") {
