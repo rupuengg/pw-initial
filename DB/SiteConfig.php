@@ -5,6 +5,7 @@ class SiteConfig
   // SEO
   private ?int $id;
   private $route;
+  private $imageKitFolder;
   private $title;
   private $description;
   private $keywords;
@@ -36,10 +37,11 @@ class SiteConfig
   private $ogVideoHeight; 
   private $ogVideoSecureUrl;
 
-  public function __construct($id, $route, $title, $description, $keywords)
+  public function __construct($id, $route, $imageKitFolder, $title, $description, $keywords)
   {
     $this->id = $id;
     $this->route = $route;
+    $this->imageKitFolder = $imageKitFolder;
     $this->title = $title;
     $this->description = $description;
     $this->keywords = $keywords;
@@ -85,6 +87,11 @@ class SiteConfig
   public function getRoute()
   {
     return $this->route;
+  }
+
+  public function getImageKitFolder()
+  {
+      return $this->imageKitFolder;
   }
 
   public function getTitle()
@@ -208,6 +215,7 @@ class SiteConfig
     return [
       'id' => $this->id,
       'route' => $this->route,
+      'imageKitFolder' => $this->imageKitFolder,
       'title' => $this->title,
       'description' => $this->description,
       'keywords' => $this->keywords,

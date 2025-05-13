@@ -26,16 +26,16 @@ class SelectQuery {
 
   public function selectByWhere($where) {
     $stmt = $this->conn->prepare($this->query . ' where ' . $where);
-    $stmt->execute();
+    $output = $stmt->execute();
 
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    return $output ? $stmt->fetch(PDO::FETCH_ASSOC) : null;
   }
 }
 
 function makeSiteConfigData($row): SiteConfig {
   if(!$row) throw new Exception('No data');
 
-  $siteConfig = new SiteConfig($row['id'], $row['route'], $row['title'], $row['description'], $row['keywords']);
+  $siteConfig = new SiteConfig($row['id'], $row['route'], $row['imageKitFolder'], $row['title'], $row['description'], $row['keywords']);
   $siteConfig->setOgData($row['ogSiteName'], $row['ogUrl'], $row['ogTitle'], $row['ogDescription'], $row['ogType'], $row['ogSeeAlso'], $row['ogLocale'], $row['ogLocaleAlternate1'], $row['ogLocaleAlternate2'], $row['ogUpdatedTime']);
   $siteConfig->setOgImageData($row['ogImageType'], $row['ogImageWidth'], $row['ogImageHeight'], $row['ogImageUrl'], $row['ogImageSecureUrl'], $row['ogImageAlt']);
   $siteConfig->setOgVideoData($row['ogVideoType'], $row['ogVideoWidth'], $row['ogVideoHeight'], $row['ogVideoSecureUrl']);
@@ -51,21 +51,21 @@ function getHomeMenuRoute() {
 }
 
 function getSiteConfig($route = "") {
-  $select = new SelectQuery();
-  $select->query("SELECT * FROM seo_setting");
+    $select = new SelectQuery();
+    $select->query("SELECT * FROM seo_setting");
 
-  if($route === "" || str_contains($route, 'admin')) {
-    $result = $select->selectAll();
+    if($route === "" || $route === "/" || str_contains($route, 'admin')) {
+        $result = $select->selectAll();
 
-    $siteConfigs = array();
-    foreach($result as $k=>$v) {
-      array_push($siteConfigs, makeSiteConfigData($v));
+        $siteConfigs = array();
+        foreach($result as $k=>$v) {
+          array_push($siteConfigs, makeSiteConfigData($v));
+        }
+
+        return $siteConfigs[0];
+    } else {
+        $result = $select->selectByWhere("route = '".$route."' ");
+
+        return makeSiteConfigData($result);
     }
-    
-    return $siteConfigs[0];
-  } else {
-    $result = $select->selectByWhere("route = '".$route."' ");
-
-    return makeSiteConfigData($result);
-  }
 }

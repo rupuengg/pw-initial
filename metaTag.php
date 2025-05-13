@@ -1,12 +1,28 @@
 <?php
-//error_reporting(E_ALL);
-  include 'DB/SelectQuery.php';
-  $route = getHomeMenuRoute();
-  $rquestUri = $_SERVER['REQUEST_URI'] === '/' ? $route : $_SERVER['REQUEST_URI'];
-  $rquestUri = str_replace('/pwi_initial/', '', $rquestUri);
-  $seo = getSiteConfig($rquestUri);
+    // error_reporting(E_ALL);
+    include 'DB/SelectQuery.php';
+
+    //  Get home menu route
+    $route = getHomeMenuRoute();
+
+    $requestUri = $_SERVER['REQUEST_URI'] === '/' ? $route : $_SERVER['REQUEST_URI'];
+
+    // Get request route
+    $requestUri = str_replace('/pwi_initial', '', $requestUri);
+
+    $seo = getSiteConfig($requestUri);
 ?>
 <title><?php echo $seo->getTitle(); ?></title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L54RGG23PV"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-L54RGG23PV');
+</script>
 
 <link rel="icon" href="./favicon.png" />
 <meta name="language" content="English" />
@@ -59,3 +75,5 @@
 <meta name="geo.placename" content="Greater Noida" />
 <meta name="geo.position" content="28.467073;77.513765" />
 <meta name="ICBM" content="28.467073, 77.513765" />
+
+<meta name="image.kit.folder" content="<?php echo $seo->getImageKitFolder() ?>" />
