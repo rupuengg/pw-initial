@@ -8,7 +8,7 @@
     $requestUri = $_SERVER['REQUEST_URI'] === '/' ? $route : $_SERVER['REQUEST_URI'];
 
     // Get request route
-    $requestUri = str_replace('/pwi_initial', '', $requestUri);
+    $requestUri = str_replace('/pwi_initial/metaTag.php', '', $requestUri);
 
     $seo = getSiteConfig($requestUri);
 ?>

@@ -50,22 +50,25 @@ function getHomeMenuRoute() {
     return $result['route'];
 }
 
+/**
+ * @throws Exception
+ */
 function getSiteConfig($route = "") {
     $select = new SelectQuery();
     $select->query("SELECT * FROM seo_setting");
 
-    if($route === "" || $route === "/" || str_contains($route, 'admin')) {
-        $result = $select->selectAll();
-
-        $siteConfigs = array();
-        foreach($result as $k=>$v) {
-          array_push($siteConfigs, makeSiteConfigData($v));
-        }
-
-        return $siteConfigs[0];
-    } else {
+    if(!($route === "" || $route === "/" || str_contains($route, 'admin'))) {
         $result = $select->selectByWhere("route = '".$route."' ");
 
-        return makeSiteConfigData($result);
+        if($result) return makeSiteConfigData($result);
     }
+
+    // Fetch All Site Config
+    $result = $select->selectAll();
+    $siteConfigs = array();
+    foreach($result as $k=>$v) {
+        $siteConfigs[] = makeSiteConfigData($v);
+    }
+
+    return $siteConfigs[0];
 }

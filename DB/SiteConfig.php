@@ -116,7 +116,7 @@ class SiteConfig
 
   public function getOgUrl()
   {
-    return $this->ogUrl;
+    return $this->ogUrl.$this->route;
   }
 
   public function getOgTitle()
